@@ -6,10 +6,16 @@
     <title>Create New Task</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body data-auth-required>
+    <nav class="app-nav">
+      <a href="index.html">Add a task</a>
+      <a href="all-task.html">View all tasks</a>
+      <button type="button" data-logout>Log out</button>
+    </nav>
     <form id="form">
     <div class="form-container">
       <h2>Add New Task</h2>
+      <p id="status" role="status" aria-live="polite"></p>
       <div class="form-group">
         <label for="taskName">Task Name</label>
         <input
@@ -38,7 +44,8 @@
       <button id="submit">update Task</button>
       <a id="allTask" href="all-task.html">view all task</a>
     </div>
-    </form>1
+    </form>
+    <script src="auth.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -70,6 +70,8 @@ label {
 
 input[type='text'],
 input[type='datetime-local'],
+input[type='email'],
+input[type='password'],
 select {
   width: 100%;
   min-height: 48px;
@@ -146,6 +148,82 @@ button:disabled {
   margin: -12px 0 18px;
   color: var(--muted);
   font-size: 0.92rem;
+}
+
+.form-container #status:empty {
+  display: none;
+}
+
+#status.status-success,
+#status.status-error {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+#status.status-success {
+  border-color: #a7ddbd;
+  background: #effaf3;
+  color: #22663c;
+}
+
+#status.status-error {
+  border-color: #efb7b7;
+  background: #fff3f3;
+  color: #a33d3d;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.app-nav a {
+  color: var(--primary-dark);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.app-nav a:hover {
+  text-decoration: underline;
+}
+
+.app-nav button {
+  min-height: 38px;
+  padding: 8px 13px;
+}
+
+.auth-container {
+  max-width: 430px;
+}
+
+.auth-container #status {
+  margin: -12px 0 18px;
+}
+
+.auth-switch {
+  margin: 22px 0 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+.text-button {
+  min-height: auto;
+  padding: 0;
+  background: transparent;
+  color: var(--primary-dark);
+}
+
+.text-button:hover:not(:disabled) {
+  transform: none;
+  background: transparent;
+  box-shadow: none;
+  text-decoration: underline;
 }
 
 #container:empty {

@@ -49,7 +49,7 @@ function renderTask(task, index) {
   card.className = 'task-card';
 
   const name = document.createElement('div');
-  name.textContent = task.task_name ?? task.name ?? '';
+  name.textContent = task.task_name;
 
   const deadline = document.createElement('div');
   deadline.textContent = `Deadline: ${task.deadline ?? ''}`;
@@ -73,8 +73,8 @@ function renderTask(task, index) {
     setStatus('');
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/delete/${encodeURIComponent(index)}`,
+      const response = await window.todoAuth.fetchWithAuth(
+        `/delete/${encodeURIComponent(task.task_name)}`,
         { method: 'DELETE' },
       );
       if (!response.ok) {
@@ -96,7 +96,7 @@ function renderTask(task, index) {
 function renderEditor(card, task, index) {
   card.replaceChildren();
 
-  const nameField = makeField('Task name', task.task_name ?? task.name ?? '');
+  const nameField = makeField('Task name', task.task_name);
   const deadlineField = makeField(
     'Deadline',
     toDateTimeLocal(task.deadline),
@@ -125,9 +125,8 @@ function renderEditor(card, task, index) {
     setStatus('');
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/update/${encodeURIComponent(index)}`,
-        {
+      const response = await window.todoAuth.fetchWithAuth(
+        `/update/${encodeURIComponent(task.task_name)}`,{
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(updatedTask),
@@ -156,13 +155,17 @@ function renderEditor(card, task, index) {
 }
 
 async function fetchData() {
+  if (!window.todoAuth.requireAuth()) {
+    return;
+  }
+
   if (!container) {
     console.error('Could not find the task container.');
     return;
   }
 
   try {
-    const response = await fetch('http://localhost:3000/all-task');
+    const response = await window.todoAuth.fetchWithAuth('/all-task');
     if (!response.ok) {
       throw new Error(`Could not load tasks (${response.status})`);
     }
